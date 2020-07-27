@@ -14,8 +14,6 @@ export const UserSchema = new mongoose.Schema({
 
     professional: { type: mongoose.Schema.Types, ref: 'Professional' },
 
-     patient: {type: mongoose.Schema.Types , ref: 'Patient'}
- 
+    patient: { type: mongoose.Schema.Types, ref: 'Patient' }
 
-
-}, {collection: 'users'});
+}, { collection: 'users' });

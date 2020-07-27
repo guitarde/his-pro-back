@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
- 
 
 export const AddressSchema = new mongoose.Schema({
     street: { type: String },

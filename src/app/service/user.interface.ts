@@ -1,6 +1,6 @@
-import { User } from "../domain/interface/models/user.type";
-import { UserDTO } from '../domain/userDTO';
-
+import { User } from "../domain/models/user.type";
+import { UserDTO } from '../domain/dto/userDTO';
+ 
 export interface UserInterface {
 
     createUser(userDTO: UserDTO): Promise<User>;

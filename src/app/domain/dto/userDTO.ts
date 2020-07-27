@@ -1,5 +1,4 @@
-import { Address } from './interface/models/address.type';
-import { AddressDTO } from './addresDTO';
+ import { AddressDTO } from './addresDTO';
 import { PatientDTO } from './patientDTO';
 import { ProfessionalDTO } from './professionalDTO';
 export class UserDTO {

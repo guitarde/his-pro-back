@@ -1,10 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { User } from '../domain/interface/models/user.type';
-import { UserDTO } from '../domain/userDTO';
-import { InjectModel } from '@nestjs/mongoose';
+import { User } from '../domain/models/user.type';
+ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { rejects } from 'assert';
-import { resolve } from 'path';
+import { UserDTO } from '../domain/dto/userDTO';
 
 
 
