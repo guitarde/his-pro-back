@@ -11,20 +11,23 @@ import { resolve } from 'path';
 @Injectable()
 export class UserService implements UserService {
 
-    private users: User[] = [];
 
     constructor(@InjectModel('User') private userModel: Model<User>) { }
 
 
-    async createUser(user: UserDTO): Promise<UserDTO> {
-        Logger.log('Service create user : ' + JSON.stringify(user));
+    async createUser(userDTO: UserDTO): Promise<UserDTO> {
+        Logger.log('Service create user : ' + JSON.stringify(userDTO));
 
         return await new this.userModel(
             {
-                ...user,
-                gender: user.genero
+                ...userDTO,
+                gender: userDTO.genero
             }
-        ).save();
+        ).save()
+            .then(userResp => {
+                Logger.log('User created successfully : ' + userResp)
+                return Promise.resolve(userResp);
+            });
     }
 
     async getAllUsers(): Promise<User[]> {
@@ -39,7 +42,6 @@ export class UserService implements UserService {
     }
 
 
-    // TODO _ Missing tha workng 
     async getUserByCriteria(criteria: string): Promise<User[]> {
         let regex = new RegExp(criteria, 'i');
 
@@ -48,7 +50,7 @@ export class UserService implements UserService {
                 .or([{ "identification": regex }, { name: regex }])
                 .exec((err, users) => {
                     if (err)
-                        reject('A error ocurrio while trieve all users');
+                        reject('An error occurred while searching by criteria');
                     resolve(users);
                 });
         });
@@ -69,7 +71,7 @@ export class UserService implements UserService {
     async deleteAllDoctors(): Promise<User[]> {
 
 
-        this.userModel.remove({ 'professional.professionalType': 'DOCTOR' });
+        this.userModel.deleteMany({ 'professional.professionalType': 'DOCTOR' }).then();
 
         return this.getAllUsers();
     }

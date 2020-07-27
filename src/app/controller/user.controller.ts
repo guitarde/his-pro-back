@@ -36,18 +36,14 @@ export class UserController {
     @Post()
     createUser(@Body() userDTO: UserDTO): Promise<User> {
         Logger.log("Calling controller create new user from type : " + ('patient' in userDTO ? 'Patient' : 'Professional'));
-        return this._userService.createUser(userDTO)
-            .then(userResp => {
-                Logger.log('User created successfully : ' + userResp)
-                return Promise.resolve(userResp);
-            }).then();
+        return this._userService.createUser(userDTO).then();
+
     }
 
     @Put('/:id')
     updateUser(
         @Param('id') id: string,
-        @Body() userDTO: UserDTO,
-    ): User {
+        @Body() userDTO: UserDTO): User {
         Logger.log("Calling controller update user by ID : " + id);
         console.log(userDTO)
         return;
