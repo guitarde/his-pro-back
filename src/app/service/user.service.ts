@@ -3,6 +3,8 @@ import { User } from '../domain/interface/models/user.type';
 import { UserDTO } from '../domain/userDTO';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { rejects } from 'assert';
+import { resolve } from 'path';
 
 
 
@@ -39,23 +41,37 @@ export class UserService implements UserService {
 
     // TODO _ Missing tha workng 
     async getUserByCriteria(criteria: string): Promise<User[]> {
+        let regex = new RegExp(criteria, 'i');
 
-        return this.userModel.find({ _id: criteria });
-
+        return new Promise((resolve, reject) => {
+            this.userModel.find({})
+                .or([{ "identification": regex }, { name: regex }])
+                .exec((err, users) => {
+                    if (err)
+                        reject('A error ocurrio while trieve all users');
+                    resolve(users);
+                });
+        });
     }
 
 
     async deleteUserById(id: string): Promise<void> {
 
-
         this.userModel.findByIdAndDelete({ _id: id }, (err, resp) => {
             console.log(resp);
             console.log(err);
         });
+
         return Promise.resolve();
     }
 
 
+    async deleteAllDoctors(): Promise<User[]> {
 
+
+        this.userModel.remove({ 'professional.professionalType': 'DOCTOR' });
+
+        return this.getAllUsers();
+    }
 
 }

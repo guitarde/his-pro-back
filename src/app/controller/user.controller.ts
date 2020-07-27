@@ -24,7 +24,7 @@ export class UserController {
         return this._userService.getUserById(id);
     }
 
-    @Get('/:criteria')
+    @Get('/criteria/:criteria')
     getUserByCriteria(@Param('criteria') criteria: string): Promise<User[]> {
 
         Logger.log("Calling controller find user by criteria : " + criteria);
@@ -55,9 +55,16 @@ export class UserController {
 
     @Delete('/:id')
     deleteUser(@Param('id') id: string): Promise<void> {
-        Logger.log("Calling controller deñete user by ID : " + id);
+        Logger.log("Calling controller delete user by ID : " + id);
 
         return this._userService.deleteUserById(id);
+    }
+
+    @Delete('/doctors/del')
+    deleteAllDoctors(): Promise<User[]> {
+        Logger.log('Calling controller delete all doctors');
+
+        return this._userService.deleteAllDoctors();
     }
 
 }
