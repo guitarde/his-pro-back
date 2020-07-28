@@ -4,12 +4,12 @@ import { ProfessionalDTO } from './professionalDTO';
 import { IsNotEmpty } from "class-validator";
 
 export class UserDTO {
+    
     @IsNotEmpty()
-
     name: string;
     surname: string;
-    lastName?: string;
-    genero?: string;
+    lastname?: string;
+    gender?: string;
     birthDate?: string;
     identification?: string;
 

@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Param, Delete, Logger, Put } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Logger, Put, Res, HttpStatus, Req } from '@nestjs/common';
 import { IUser } from '../domain/models/user.type';
-import { UserService } from '../service/user.service';
 import { UserDTO } from '../domain/dto/userDTO';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags, ApiForbiddenResponse, ApiCreatedResponse } from '@nestjs/swagger';
+import { Response } from 'express';
+import { UserService } from '../service/user.service';
 
 @ApiTags('Users')
 @Controller('users')
@@ -11,15 +12,24 @@ export class UserController {
     constructor(private _userService: UserService) { }
 
     @Get()
-    getAllUsers(): Promise<IUser[]> {
+    getAllUsers(): Promise<IUser> {
         Logger.log("Calling controller retrieve all Users");
 
-        return this._userService.getAllUsers();
+        return this._userService.getAllUsers().then();
+        // await this._userService.getAllUsers().then(resp => {
+        //     res.status(HttpStatus.ACCEPTED)
+        //         .json({
+        //             "ok": true,
+        //             "type": "Users",
+        //             "total": resp.length,
+        //             "users": resp
+        //         });
+        // });
     }
 
 
     @ApiResponse({ status: 201, description: 'The record has been successfully created.' })
-    @ApiResponse({ status: 403, description: 'Forbidden.' })
+    @ApiForbiddenResponse({ status: 403, description: 'Forbidden.' })
     @Get('/:id')
     getUserById(@Param('id') id: string): Promise<IUser> {
 
@@ -37,6 +47,11 @@ export class UserController {
     }
 
 
+    @ApiCreatedResponse({
+        status: 201,
+        description: 'The record has been successfully created.',
+        type: UserDTO,
+    })
     @Post()
     createUser(@Body() userDTO: UserDTO): Promise<IUser> {
         Logger.log("Calling controller create new user from type : " + ('patient' in userDTO ? 'Patient' : 'Professional'));
@@ -53,7 +68,7 @@ export class UserController {
     }
 
     @Delete('/:id')
-    deleteUser(@Param('id') id: string): Promise<void> {
+    deleteUser(@Param('id') id: string): Promise<IUser> {
         Logger.log("Calling controller delete user by ID : " + id);
 
         return this._userService.deleteUserById(id);

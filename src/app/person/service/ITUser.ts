@@ -11,7 +11,7 @@ export interface ITUser {
 
     getUserByCriteria(criteria: string): Promise<IUser[]>;
 
-    deleteUserById(id: string): Promise<void>;
+    deleteUserById(id: string): Promise<IUser>;
 
     deleteAllDoctors(): Promise<IUser[]>;
 

@@ -9,7 +9,7 @@ export interface IUser extends Document{
     name: string;
     surname: string;
     lastName?: string;
-    genero?: string;
+    gender?: string;
     birthDate?: string;
     identification?: string;
 
