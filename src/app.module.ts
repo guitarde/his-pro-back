@@ -14,10 +14,8 @@ import { UserLoginModule } from './app/user-login/user-login.module';
     ConfigModule.forRoot(),
 
     UserModule,
-   MongooseModule.forRoot('mongodb+srv://guitarde:guitar1@cluster0.5sdd7.mongodb.net/his')
-    //MongooseModule.forRoot(`mongodb+srv://${process.env.USER}:${process.env.PASS}@${process.env.HOST}?retryWrites=true&w=majority`),
+    MongooseModule.forRoot(`mongodb+srv://${process.env.USUARIO}:${process.env.PASS}${process.env.HOST}/${process.env.DB}?retryWrites=true&w=majority`)
 
-    // MongooseModule.forRoot(`mongodb://${process.env.HOST}/${process.env.DB}?retryWrites=false&w=majority`)
   ],
   controllers: [
     AppController],

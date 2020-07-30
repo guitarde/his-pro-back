@@ -10,7 +10,7 @@ import { UserLoginModule } from '../user-login/user-login.module';
   imports: [
     PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     JwtModule.register({
-      secretOrPrivateKey: 'estaesmiphrassecreate',
+      secretOrPrivateKey: '@@##secret*value',
       signOptions: {
         expiresIn: 3600
       }

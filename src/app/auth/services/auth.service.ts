@@ -11,23 +11,28 @@ export class AuthService {
     constructor(private userLoginService: UserLoginService, private jwtService: JwtService) { };
 
     async login(loginUserDTO: LoginUserDTO) {
+
+        Logger.log("Checking login user: " + loginUserDTO);
         let result = await this.userLoginService.findByEmail(loginUserDTO.email);
         if (!result) throw new NotFoundException();
+
         let checkPass = await bcrypt.compare(loginUserDTO.password, result.password);
         if (!checkPass) throw new UnauthorizedException();
 
         return this.createJwtPayload(result);
 
     }
+
     createJwtPayload(user) {
+
         let data = {
             email: user.email,
             id: user._id
         }
-        let jwt = this.jwtService.sign(data);
+
         return {
             expiresIn: 3600,
-            token: jwt
+            token: this.jwtService.sign(data)
         }
     }
 
