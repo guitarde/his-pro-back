@@ -1,4 +1,6 @@
 export class UserLoginDTO {
-    email:string;
+    username: string;
+    email: string;
     password: string;
+    role: string;
 }

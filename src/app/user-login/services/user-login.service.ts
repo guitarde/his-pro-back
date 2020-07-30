@@ -17,22 +17,18 @@ export class UserLoginService {
 
         const userLoginModel = new this.userLoginModel(registerUserLogin);
         const SESSSION = await userLoginModel.db.startSession();
-
+        let result;
         try {
             SESSSION.startTransaction();
             let pass = await bcrypt.hash(registerUserLogin.password, 10);
 
-            let result = await this.userLoginModel.create([
+            result = await this.userLoginModel.create([
                 {
-
-                    "username": "user11ss",
-                    "email": "user11@email.com",
-                    "password": "123456",
-                    "role": "USER_ROLE"
+                    ...registerUserLogin,
+                    password: pass
                 }
             ], { session: SESSSION })
             await SESSSION.commitTransaction();
-            return result;
         } catch (error) {
             Logger.error(error + registerUserLogin);
             await SESSSION.abortTransaction();
@@ -42,6 +38,8 @@ export class UserLoginService {
         } finally {
             SESSSION.endSession();
         }
+        return result;
+
     }
 
     async findByEmail(email: string) {

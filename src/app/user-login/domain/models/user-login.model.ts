@@ -2,7 +2,9 @@ import { Document } from "mongoose";
 
 export interface IUserLogin extends Document {
 
-    email:string,
-    password: string
+    username: string;
+    email: string;
+    password: string;
+    role: string;
 
 }

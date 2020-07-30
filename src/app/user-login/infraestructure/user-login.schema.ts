@@ -10,11 +10,12 @@ var rolesValidos = {
 
 export const userLoginSchema = new Schema({
 
-    email: {
-        type: String,
-        unique: true,
-        required: true},
-    password: String,
+    username: { type: String, requiere: [true, 'Username is required'] },
+    email: { type: String, unique: true, requiere: [true, 'Email is required'] },
+    password: { type: String, requiere: [true, 'Password is required'] },
+    img: { type: String, requiere: false },
+    role: { type: String, requiere: false, default: 'USER_ROLE', enum: rolesValidos },
+    createAt: { type: Date, default: Date.now }
 }, { collection: 'user-login' });
 
 
