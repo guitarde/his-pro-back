@@ -24,7 +24,7 @@ export class UserService implements ITUser {
         let result;
         try {
             SESSSION.startTransaction();
-            result = await this.userModel.create(newUser)
+            result = await this.userModel.create([newUser], { session: SESSSION })
             await SESSSION.commitTransaction();
         } catch (error) {
             Logger.error(error);
