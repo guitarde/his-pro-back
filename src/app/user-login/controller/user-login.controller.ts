@@ -22,7 +22,7 @@ export class UserLoginController {
         }
     }
 
-    @UseGuards(AuthGuard('jwt'))
+    @UseGuards(AuthGuard())
     @Get()
     getAllUsersLogin() {
         Logger.log('Listing of users')
