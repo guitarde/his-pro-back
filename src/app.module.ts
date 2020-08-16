@@ -4,8 +4,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { UserModule } from './app/person/user.module';
+import { UserModule } from './app/person/person.module';
 import { UserLoginModule } from './app/user-login/user-login.module';
+import { TypegooseModule } from 'nestjs-typegoose';
 
 @Module({
   imports: [
@@ -14,6 +15,8 @@ import { UserLoginModule } from './app/user-login/user-login.module';
     ConfigModule.forRoot(),
 
     UserModule,
+    TypegooseModule.forRoot(`mongodb://${process.env.USUARIO}:${process.env.PASS}${process.env.HOST}/${process.env.DB}`, {
+      useNewUrlParser: true}),
     MongooseModule.forRoot(`mongodb+srv://${process.env.USUARIO}:${process.env.PASS}${process.env.HOST}/${process.env.DB}?retryWrites=true&w=majority`)
 
   ],
