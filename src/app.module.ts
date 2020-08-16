@@ -5,8 +5,8 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './app/person/person.module';
-import { UserLoginModule } from './app/user-login/user-login.module';
 import { TypegooseModule } from 'nestjs-typegoose';
+import { UserLoginModule } from './app/user-login/user-login.module';
 
 @Module({
   imports: [

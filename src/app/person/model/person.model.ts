@@ -7,7 +7,7 @@ import { Patient } from "./patient.model";
 @modelOptions({
   schemaOptions: {
     collection: 'person',
-  },
+  }
 })
 export class Person {
 

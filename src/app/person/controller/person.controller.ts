@@ -5,7 +5,7 @@ import { Response } from 'express';
 import { AuthGuard } from '@nestjs/passport';
 import { PersonService } from '../service/person.service';
 import { Person } from '../model/person.model';
-import { PersonDTO } from 'src/app/dto/personDTO';
+import { PersonDTO } from 'src/app/dto/person/personDTO';
 
 @UseGuards(AuthGuard())
 @ApiTags('Persons')

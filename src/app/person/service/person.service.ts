@@ -2,7 +2,7 @@ import { Injectable, Logger, NotFoundException, BadGatewayException } from '@nes
 import { InjectModel } from '@nestjs/mongoose';
 import { ReturnModelType } from '@typegoose/typegoose';
 import { Person } from '../model/person.model';
-import { PersonDTO } from 'src/app/dto/personDTO';
+import { PersonDTO } from 'src/app/dto/person/personDTO';
 import { ITPerson } from './ITPerson';
 
 @Injectable()

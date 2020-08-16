@@ -1,8 +1,8 @@
 import { Controller, Post, Body, Get, Logger, Param, HttpStatus, HttpException, ConflictException, UseGuards, Req } from '@nestjs/common';
-import { UserLoginService } from '../services/user-login.service';
-import { UserLoginDTO } from '../domain/user-loginDTO';
+import { UserLoginService } from '../services/user.service';
 import { AuthGuard } from '@nestjs/passport';
 import { Request } from 'express';
+import { UserDTO } from 'src/app/dto/user/userDTO';
 
 @Controller('user-login')
 export class UserLoginController {
@@ -10,7 +10,7 @@ export class UserLoginController {
     constructor(private _userLoginService: UserLoginService) { }
 
     @Post()
-    registerUser(@Body() userloginDTO: UserLoginDTO) {
+    registerUser(@Body() userloginDTO: UserDTO) {
         console.log(JSON.stringify(userloginDTO));
         try {
             let data = this._userLoginService.registerUser(userloginDTO);

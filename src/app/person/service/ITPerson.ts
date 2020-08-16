@@ -1,4 +1,4 @@
-import { PersonDTO } from '../../dto/personDTO';
+import { PersonDTO } from '../../dto/person/personDTO';
 import { Person } from '../model/person.model';
 
 export interface ITPerson {
