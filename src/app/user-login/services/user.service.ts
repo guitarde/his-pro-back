@@ -1,28 +1,27 @@
 import { Injectable, Logger, BadGatewayException, ConflictException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
-import { UserLoginDTO } from '../domain/user-loginDTO';
 import *  as  bcrypt from 'bcrypt';
-import { IUserLogin } from '../domain/models/user-login.model';
+import { ReturnModelType } from "@typegoose/typegoose";
+import { User } from "../model/user.model";
+import { UserDTO } from "src/app/dto/user/userDTO";
 
 
 @Injectable()
 export class UserLoginService {
 
+    constructor(@InjectModel('User') private readonly userModel: ReturnModelType<typeof User>){}
 
-    constructor(@InjectModel("UserLogin") private userLoginModel: Model<IUserLogin>) { }
+    async registerUser(registerUserLogin: UserDTO) {
 
-
-    async registerUser(registerUserLogin: UserLoginDTO) {
-
-        const userLoginModel = new this.userLoginModel(registerUserLogin);
+        const userLoginModel = new this.userModel(registerUserLogin);
         const SESSSION = await userLoginModel.db.startSession();
         let result;
         try {
             SESSSION.startTransaction();
             let pass = await bcrypt.hash(registerUserLogin.password, 10);
 
-            result = await this.userLoginModel.create([
+            result = await this.userModel.create([
                 {
                     ...registerUserLogin,
                     password: pass
@@ -43,11 +42,11 @@ export class UserLoginService {
     }
 
     async findByEmail(email: string) {
-        return this.userLoginModel.findOne({ 'email': email });
+        return this.userModel.findOne({ 'email': email });
     }
 
     async getAllUsers() {
-        return await this.userLoginModel.find({});
+        return await this.userModel.find({});
     }
 
 }

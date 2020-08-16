@@ -2,12 +2,13 @@ import { Module } from '@nestjs/common';
 import { UserLoginController } from './controller/user-login.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PassportModule } from '@nestjs/passport';
-import { userLoginSchema } from './infraestructure/user-login.schema';
-import { UserLoginService } from './services/user-login.service';
+import { User } from './model/user.model';
+import { TypegooseModule } from 'nestjs-typegoose';
+import { UserLoginService } from './services/user.service';
 
 @Module({
     imports: [
-        MongooseModule.forFeature([{ name: 'UserLogin', schema: userLoginSchema }]),
+        TypegooseModule.forFeature([User]),
         PassportModule.register({ defaultStrategy: 'jwt', session: false }),
     ],
     exports: [UserLoginService],

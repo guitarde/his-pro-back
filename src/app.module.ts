@@ -4,7 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { UserModule } from './app/person/user.module';
+import { UserModule } from './app/person/person.module';
+import { TypegooseModule } from 'nestjs-typegoose';
 import { UserLoginModule } from './app/user-login/user-login.module';
 
 @Module({
@@ -14,7 +15,9 @@ import { UserLoginModule } from './app/user-login/user-login.module';
     ConfigModule.forRoot(),
 
     UserModule,
-    MongooseModule.forRoot(`mongodb+srv://${process.env.USUARIO}:${process.env.PASS}${process.env.HOST}/${process.env.DB}?retryWrites=true&w=majority`)
+    TypegooseModule.forRoot(`mongodb+srv://guitarde:guitar1@cluster0.rvcck.mongodb.net/his`, {
+      useNewUrlParser: true}),
+    MongooseModule.forRoot(`mongodb+srv://guitarde:guitar1@cluster0.rvcck.mongodb.net/his?retryWrites=true&w=majority`)
 
   ],
   controllers: [
