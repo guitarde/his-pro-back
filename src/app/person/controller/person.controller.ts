@@ -9,7 +9,7 @@ import { PersonDTO } from 'src/app/dto/personDTO';
 
 @UseGuards(AuthGuard())
 @ApiTags('Persons')
-@Controller('Persons')
+@Controller('persons')
 export class PersonController {
 
     constructor(private _personService: PersonService) { }

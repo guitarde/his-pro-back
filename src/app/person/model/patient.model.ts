@@ -10,6 +10,7 @@ export class Patient {
 
   @Type(() => Insurer)
   @prop()
-  insurer: Insurer;
+  insurer: Insurer[];
+  
 
 }

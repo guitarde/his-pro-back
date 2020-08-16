@@ -9,7 +9,7 @@ type professionalRoleValidos = {
 
 export class Professional {
 
-  @prop({ require: [true, 'Number is required'] })
+  @prop({ require: [true, 'Number colegiado is required'] })
   nColegiado: string;
 
   @prop()

@@ -1,10 +1,14 @@
-import { prop } from "@typegoose/typegoose"
+import { prop, modelOptions } from "@typegoose/typegoose"
 import { Address } from "./address.model";
 import { Type } from "class-transformer";
 import { Professional } from "./profesional.model";
 import { Patient } from "./patient.model";
 
-
+@modelOptions({
+  schemaOptions: {
+    collection: 'person',
+  },
+})
 export class Person {
 
   @prop({ requiere: [true, 'Name is requiered']})

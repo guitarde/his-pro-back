@@ -25,7 +25,7 @@ export class PersonService implements ITPerson {
             result = await this.personModel.create([newUser], { session: SESSSION })
             await SESSSION.commitTransaction();
         } catch (error) {
-            Logger.error(error);
+            Logger.error("ERROR: " + error);
             await SESSSION.abortTransaction();
             throw new BadGatewayException();
         } finally {
