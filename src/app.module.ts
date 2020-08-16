@@ -15,9 +15,9 @@ import { TypegooseModule } from 'nestjs-typegoose';
     ConfigModule.forRoot(),
 
     UserModule,
-    TypegooseModule.forRoot(`mongodb://${process.env.USUARIO}:${process.env.PASS}${process.env.HOST}/${process.env.DB}`, {
+    TypegooseModule.forRoot(`mongodb+srv://${process.env.USUARIO}:${process.env.PASS}${process.env.HOST}/${process.env.DB}`, {
       useNewUrlParser: true}),
-    MongooseModule.forRoot(`mongodb+srv://${process.env.USUARIO}:${process.env.PASS}${process.env.HOST}/${process.env.DB}?retryWrites=true&w=majority`)
+  // MongooseModule.forRoot(`mongodb+srv://${process.env.USUARIO}:${process.env.PASS}${process.env.HOST}/${process.env.DB}?retryWrites=true&w=majority`)
 
   ],
   controllers: [
